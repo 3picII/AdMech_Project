@@ -1,24 +1,32 @@
 package pl.coderslab.game_objects;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Hero extends Enemy{
+import javax.persistence.*;
+import javax.persistence.Entity;
 
-    //Hero dziedziczy po enemy, jedyną różnicą jest ekwipunek oraz
-    //numer lokacji aby umożliwić zapis poprzez checkpointy
+@Entity
+@Data
+@Table(name = Hero.TABLE_NAME)
+@AllArgsConstructor
+public class Hero{
 
-    @Getter
-    @Setter
-    private ItemsList equipment;
+    final static String TABLE_NAME="hero";
 
-    @Getter
-    @Setter
-    private int locationNumber;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String name;
+    private String description;
+    private int hp;
+    private int locationId;
+    @OneToOne
+    @JoinColumn(name = "equipment_id")
+    private Equipment equipment;
 
-    public Hero(String name, String description, int hp, int attackPower, ItemsList equipment, int locationNumber) {
-        super(name, description, hp, attackPower);
-        this.equipment = equipment;
-        this.locationNumber = locationNumber;
+    public Hero() {
     }
 }

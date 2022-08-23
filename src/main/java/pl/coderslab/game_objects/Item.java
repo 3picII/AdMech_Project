@@ -29,11 +29,5 @@ public class Item {
     public Item() {
     }
 
-    public Item(String name, String description, int type, int power) {
-        this.name = name;
-        this.description = description;
-        this.type = type;
-        this.power = power;
-    }
 
 }

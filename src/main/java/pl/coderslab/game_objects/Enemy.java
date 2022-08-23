@@ -1,28 +1,29 @@
 package pl.coderslab.game_objects;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Enemy extends Entity{
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Data
+@AllArgsConstructor
+public class Enemy{
 
     //Model przeciwnika
-
-    @Getter
-    @Setter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String name;
+    private String description;
     private int hp;
-
-    @Getter
-    @Setter
     private int attackPower;
 
-    public Enemy(String name, String description) {
-        super(name, description);
-    }
+    public Enemy() {
 
-    public Enemy(String name, String description, int hp, int attackPower) {
-        super(name, description);
-        this.hp = hp;
-        this.attackPower = attackPower;
     }
-
 }

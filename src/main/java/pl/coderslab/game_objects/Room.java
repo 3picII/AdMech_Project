@@ -1,27 +1,19 @@
 package pl.coderslab.game_objects;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Entity;
 
-public class Room extends Entity{
+@Data
+public class Room {
 
-    @Getter
-    @Setter
+    private String name;
+    private String description;
     private int north, east, south, west;
-
-    @Getter
-    @Setter
     private Chest chest;
 
-    public Room(String name, String description, int north, int east, int south, int west, Chest chest) {
-        super(name, description);
-        this.north = north;
-        this.east = east;
-        this.south = south;
-        this.west = west;
-        this.chest = chest;
-    }
 
     public String description(){
         String roomdesc;
