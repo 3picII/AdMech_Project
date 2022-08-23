@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: macbookpro13
+Build-Jdk: Oracle OpenJDK version 17.0.3
+Implementation-Title: AdMech_Project
+Implementation-Version: 1.0-SNAPSHOT
+Implementation-Vendor-Id: pl.coderslab
+Main-Class: ${start-class}
+
