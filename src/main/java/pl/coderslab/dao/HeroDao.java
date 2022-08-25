@@ -32,4 +32,8 @@ public class HeroDao {
     public void deleteHero(Hero hero){
         entityManager.remove(entityManager.contains(hero) ? hero : entityManager.merge(hero));
     }
+
+    public void updateHero (Hero hero){
+        entityManager.merge(hero);
+    }
 }

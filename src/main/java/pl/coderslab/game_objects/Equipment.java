@@ -55,5 +55,13 @@ public class Equipment {
         this.item1 = item1;
     }
 
-
+    @Override
+    public String toString() {
+        return "Equipment:\n" +
+                "- " + item1 + "\n" +
+                "- " + item2 + "\n" +
+                "- " + item3 + "\n" +
+                "- " + item4 + "\n" +
+                "----------------";
+    }
 }

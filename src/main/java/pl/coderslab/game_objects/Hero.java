@@ -22,11 +22,17 @@ public class Hero{
     private String name;
     private String description;
     private int hp;
+    private int pwr;
     private int locationId;
-    @OneToOne
-    @JoinColumn(name = "equipment_id")
-    private Equipment equipment;
 
     public Hero() {
+    }
+
+    public Hero(String name, String description, int hp,int pwr, int locationId) {
+        this.name = name;
+        this.description = description;
+        this.hp = hp;
+        this.pwr = pwr;
+        this.locationId = locationId;
     }
 }

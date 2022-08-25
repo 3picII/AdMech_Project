@@ -29,4 +29,8 @@ public class HeroService {
     public void deleteHero(Hero hero){
         heroDao.deleteHero(hero);
     }
+
+    public void updateHero(Hero hero){
+        heroDao.updateHero(hero);
+    }
 }

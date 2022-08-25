@@ -2,6 +2,7 @@ package pl.coderslab.dao;
 
 import org.springframework.stereotype.Repository;
 import pl.coderslab.game_objects.Equipment;
+import pl.coderslab.game_objects.Hero;
 import pl.coderslab.game_objects.Item;
 
 import javax.persistence.EntityManager;
@@ -31,5 +32,9 @@ public class EquipmentDao {
 
     public void deleteEquipment(Equipment equipment){
         entityManager.remove(entityManager.contains(equipment) ? equipment : entityManager.merge(equipment));
+    }
+
+    public void updateEquipment(Equipment equipment){
+        entityManager.merge(equipment);
     }
 }

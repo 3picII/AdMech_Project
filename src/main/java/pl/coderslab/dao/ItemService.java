@@ -28,4 +28,8 @@ public class ItemService {
     public void deleteItem(Item item){
         itemDao.deleteItem(item);
     }
+
+    public void updateItem(Item item){
+        itemDao.updateItem(item);
+    }
 }

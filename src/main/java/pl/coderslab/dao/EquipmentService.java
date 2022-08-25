@@ -29,4 +29,8 @@ public class EquipmentService {
     public void deleteEquipment(Equipment equipment){
         equipmentDao.deleteEquipment(equipment);
     }
+
+    public void updateEquipment(Equipment equipment){
+        equipmentDao.updateEquipment(equipment);
+    }
 }
