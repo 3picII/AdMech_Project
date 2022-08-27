@@ -30,6 +30,6 @@ public class TestController {
         equipment.setItem1(item);
         equipmentService.saveEquipment(equipment);
 
-        return "test/add";
+        return "start";
     }
 }

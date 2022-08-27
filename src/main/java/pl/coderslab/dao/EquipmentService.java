@@ -18,6 +18,7 @@ public class EquipmentService {
         return equipmentDao.findById(id);
     }
 
+
     public List<Equipment> findAll(){
         return equipmentDao.findAll();
     }
