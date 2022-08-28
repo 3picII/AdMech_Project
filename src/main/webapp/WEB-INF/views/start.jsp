@@ -11,8 +11,11 @@
     <title>AdMech Game </title>
 </head>
 <body>
-
-<button type="button">Start</button>
+<h3>${text1}</h3>
+<form method="post">
+    <input type="text"  name="command"><br>
+    <input type="submit" hidden/>
+</form>
 
 </body>
 </html>

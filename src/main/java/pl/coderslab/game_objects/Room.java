@@ -33,7 +33,7 @@ public class Room {
         this.chest = chest;
     }
 
-    public String description(){
+    public String description() {
         String roomdesc;
 
         roomdesc = getName() + ": " + getDescription();

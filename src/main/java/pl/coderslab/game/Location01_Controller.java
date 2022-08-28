@@ -2,8 +2,8 @@ package pl.coderslab.game;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.Direction;
 import pl.coderslab.Tools;
 import pl.coderslab.dao.EquipmentService;
@@ -13,6 +13,7 @@ import pl.coderslab.game_objects.Equipment;
 import pl.coderslab.game_objects.Hero;
 import pl.coderslab.game_objects.Room;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,60 +25,53 @@ public class Location01_Controller {
     private final EquipmentService equipmentService;
     private final ItemService itemService;
     private final Tools tools;
-    static  List<String> vocab = new ArrayList<>(Arrays.asList("n","e","s","w","look","equip","hit"));
+    static List<String> vocab = new ArrayList<>(Arrays.asList("n", "e", "s", "w", "look", "equip", "hit"));
     Hero player = temporaryPlayer();
 
-    @ResponseBody
-    @RequestMapping("/location1")
-    public String location1(){
-        Room room = tools.mapOfRooms().get(3);
-        String zxc = room.toString();
-        String zxcv = room.description();
-        Hero hero = new Hero();
-        return zxc + " " + zxcv;
 
-        //        BufferedReader in;
-        //        String input;
-        //        String output = "";
-        //        game = new Game();
-        //        in = new BufferedReader(new InputStreamReader(System.in));
-        //        game.showIntro();
-        //        do {
-        //            System.out.print("> ");
-        //            input = in.readLine();
-        //            switch (input) {
-        //                default:
-        //                    output = runCommand(input);
-        //                    break;
-        //            }
-        //            if (!output.trim().isEmpty()) {
-        //                showStr(output);
-        //            }
-        //        } while (!"q".equals(input));
-        //    }
+    @GetMapping("/location1")
+    public String location1() {
+
+        return "start";
     }
 
-    public Hero temporaryPlayer(){
-        Hero player = new Hero("John","Yet another tech priest from mars",100,15,0);
+
+    @PostMapping("/location1")
+    public String location1(@RequestParam(name = "command") String command, ModelMap model) {
+
+        switch (command) {
+            default:
+                runCommand(command);
+                break;
+        }
+        model.addAttribute("text1", look());
+
+        return "start";
+
+    }
+
+    public Hero temporaryPlayer() {
+        Hero player = new Hero("John", "Yet another tech priest from mars", 100, 15, 0);
         return player;
     }
 
 
-    private void moveHeroTo(Hero hero, int roomId){
+    private void moveHeroTo(Hero hero, int roomId) {
         hero.setLocationId(roomId);
         heroService.updateHero(hero);
     }
 
-    void showStr(String x){
-        System.out.println(x);
+    public String showStr(String x) {
+        return x;
     }
-    private int moveTo(Hero hero, Direction x){
+
+    private int moveTo(Hero hero, Direction x) {
 
 
         Room room = tools.mapOfRooms().get(hero.getLocationId());
         int exit;
 
-        switch(x){
+        switch (x) {
             case NORTH:
                 exit = room.getNorth();
                 break;
@@ -94,39 +88,42 @@ public class Location01_Controller {
                 exit = Direction.NO_EXIT;
                 break;
         }
-        if(exit != Direction.NO_EXIT){
-            moveHeroTo(hero,exit);
+        if (exit != Direction.NO_EXIT) {
+            moveHeroTo(hero, exit);
         }
         return exit;
     }
 
-    void moveHeroToDirection(Direction dir){
-        if(moveTo(player,dir)==Direction.NO_EXIT){
+    void moveHeroToDirection(Direction dir) {
+        if (moveTo(player, dir) == Direction.NO_EXIT) {
             System.out.println("No Exit");
-        }else {
+        } else {
             look();
         }
     }
 
-    void goN(){
+    void goN() {
         moveHeroToDirection(Direction.NORTH);
-}
-    void goE(){
-        moveHeroToDirection(Direction.EAST);
-}
-    void goS(){
-        moveHeroToDirection(Direction.SOUTH);
-}
-    void goW(){
-        moveHeroToDirection(Direction.WEST);
-}
-
-    void look() {
-        Room room = tools.mapOfRooms().get(player.getLocationId());
-        showStr("You are in the " + room.description());
     }
 
-    public String showEquipment(Hero hero){
+    void goE() {
+        moveHeroToDirection(Direction.EAST);
+    }
+
+    void goS() {
+        moveHeroToDirection(Direction.SOUTH);
+    }
+
+    void goW() {
+        moveHeroToDirection(Direction.WEST);
+    }
+
+    public String look() {
+        Room room = tools.mapOfRooms().get(player.getLocationId());
+        return showStr("You are in the " + room.description());
+    }
+
+    public String showEquipment(Hero hero) {
         Equipment equipment = equipmentService.findById(hero.getId());
         String show = equipment.toString();
         return show;
@@ -160,7 +157,7 @@ public class Location01_Controller {
     }
 
 
-    public static String parseCommand(List<String> wordlist) {
+    public  String parseCommand(List<String> wordlist) {
         List<String> command = new ArrayList<>();
         String error = "";
         String msg;
@@ -182,7 +179,7 @@ public class Location01_Controller {
         return msg;
     }
 
-    static String processCommand(List<String> command) {
+    public String processCommand(List<String> command) {
         String s = "";
 
         if (command.size() == 0) {
@@ -191,23 +188,33 @@ public class Location01_Controller {
             s = "Command is to long";
         } else {
             switch (command.size()) {
-                case 1:
-                    s = processVerb(command);
-                    break;
                 default:
-                    s = "Unable to process command";
+                    s = processVerb(command);
                     break;
             }
         }
         return s;
     }
 
-    public static String processVerb(List<String> commands){
+    public String processVerb(List<String> commands) {
         String msg = "";
 
-        switch(commands.get(0)){
+        switch (commands.get(0)) {
             case "n":
+                goN();
+                break;
 
+            case "e":
+                goE();
+                break;
+
+            case"s":
+                goS();
+                break;
+
+            case"w":
+                goW();
+                break;
         }
         return msg;
     }

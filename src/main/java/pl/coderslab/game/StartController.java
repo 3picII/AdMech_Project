@@ -10,7 +10,7 @@ public class StartController {
 
     @RequestMapping("/")
     public String start(){
-        return "start";
+        return "";
     }
 
 }
