@@ -27,12 +27,12 @@ public class Location01_Controller {
     private final Tools tools;
     static List<String> vocab = new ArrayList<>(Arrays.asList("n", "e", "s", "w", "look", "equip", "hit"));
     Hero player = temporaryPlayer();
-
+//    HttpServletRequest request;
+//    String player1 = (String) request.getSession().getAttribute("hero");
 
     @GetMapping("/location1")
     public String location1() {
-
-        return "start";
+        return "mainGame";
     }
 
 
@@ -46,7 +46,7 @@ public class Location01_Controller {
         }
         model.addAttribute("text1", look());
 
-        return "start";
+        return "mainGame";
 
     }
 

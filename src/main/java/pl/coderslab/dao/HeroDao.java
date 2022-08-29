@@ -21,7 +21,7 @@ public class HeroDao {
     }
 
     public List<Hero> findAll(){
-        Query query = entityManager.createQuery("select i from Item i");
+        Query query = entityManager.createQuery("select h from Hero h");
         return query.getResultList();
     }
 
