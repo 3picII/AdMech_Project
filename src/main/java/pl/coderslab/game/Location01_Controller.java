@@ -26,7 +26,7 @@ public class Location01_Controller {
     private final ItemService itemService;
     private final Tools tools;
     static List<String> vocab = new ArrayList<>(Arrays.asList("n", "e", "s", "w", "look", "equip", "hit"));
-    Hero player = temporaryPlayer();
+//    Hero player = temporaryPlayer();
 //    HttpServletRequest request;
 //    Hero player1 = (Hero) request.getSession().getAttribute("hero");
 
@@ -37,14 +37,27 @@ public class Location01_Controller {
 
 
     @PostMapping("/location1")
-    public String location1(@RequestParam(name = "command") String command, ModelMap model) {
+    public String location1(@RequestParam(name = "command") String command, ModelMap model, HttpServletRequest request) {
 
-        switch (command) {
-            default:
-                runCommand(command);
-                break;
+        Hero player1 = (Hero) request.getSession().getAttribute("hero");
+
+        if(player1 == null){
+            model.addAttribute("text1","start");
+        }else{
+            switch (command) {
+                default:
+                    runCommand(command, player1);
+                    break;
+            }
+            model.addAttribute("text1", look(player1));
         }
-        model.addAttribute("text1", look());
+
+//        switch (command) {
+//            default:
+//                runCommand(command);
+//                break;
+//        }
+//        model.addAttribute("text1", look());
 
         return "mainGame";
 
@@ -94,32 +107,32 @@ public class Location01_Controller {
         return exit;
     }
 
-    void moveHeroToDirection(Direction dir) {
-        if (moveTo(player, dir) == Direction.NO_EXIT) {
+    void moveHeroToDirection(Direction dir, Hero hero) {
+        if (moveTo(hero, dir) == Direction.NO_EXIT) {
             System.out.println("No Exit");
         } else {
-            look();
+            look(hero);
         }
     }
 
-    void goN() {
-        moveHeroToDirection(Direction.NORTH);
+    void goN(Hero hero) {
+        moveHeroToDirection(Direction.NORTH, hero);
     }
 
-    void goE() {
-        moveHeroToDirection(Direction.EAST);
+    void goE(Hero hero) {
+        moveHeroToDirection(Direction.EAST, hero);
     }
 
-    void goS() {
-        moveHeroToDirection(Direction.SOUTH);
+    void goS(Hero hero) {
+        moveHeroToDirection(Direction.SOUTH, hero);
     }
 
-    void goW() {
-        moveHeroToDirection(Direction.WEST);
+    void goW(Hero hero) {
+        moveHeroToDirection(Direction.WEST, hero);
     }
 
-    public String look() {
-        Room room = tools.mapOfRooms().get(player.getLocationId());
+    public String look(Hero hero) {
+        Room room = tools.mapOfRooms().get(hero.getLocationId());
         return showStr("You are in the " + room.description());
     }
 
@@ -129,7 +142,7 @@ public class Location01_Controller {
         return show;
     }
 
-    public String runCommand(String command) {
+    public String runCommand(String command, Hero hero) {
         List<String> wordlist;
         String s = "ok";
         String lowCommand = command.trim().toLowerCase();
@@ -139,7 +152,7 @@ public class Location01_Controller {
                 s = "Please enter a command";
             } else {
                 wordlist = wordList(lowCommand);
-                s = parseCommand(wordlist);
+                s = parseCommand(wordlist, hero);
             }
         }
         return s;
@@ -157,7 +170,7 @@ public class Location01_Controller {
     }
 
 
-    public  String parseCommand(List<String> wordlist) {
+    public  String parseCommand(List<String> wordlist, Hero hero) {
         List<String> command = new ArrayList<>();
         String error = "";
         String msg;
@@ -174,12 +187,12 @@ public class Location01_Controller {
         if (!error.isEmpty()) {
             msg = error;
         } else {
-            msg = processCommand(command);
+            msg = processCommand(command, hero);
         }
         return msg;
     }
 
-    public String processCommand(List<String> command) {
+    public String processCommand(List<String> command, Hero hero) {
         String s = "";
 
         if (command.size() == 0) {
@@ -189,31 +202,31 @@ public class Location01_Controller {
         } else {
             switch (command.size()) {
                 default:
-                    s = processVerb(command);
+                    s = processVerb(command, hero);
                     break;
             }
         }
         return s;
     }
 
-    public String processVerb(List<String> commands) {
+    public String processVerb(List<String> commands, Hero hero) {
         String msg = "";
 
         switch (commands.get(0)) {
             case "n":
-                goN();
+                goN(hero);
                 break;
 
             case "e":
-                goE();
+                goE(hero);
                 break;
 
             case"s":
-                goS();
+                goS(hero);
                 break;
 
             case"w":
-                goW();
+                goW(hero);
                 break;
         }
         return msg;
