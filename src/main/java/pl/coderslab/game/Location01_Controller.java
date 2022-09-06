@@ -28,7 +28,7 @@ public class Location01_Controller {
     static List<String> vocab = new ArrayList<>(Arrays.asList("n", "e", "s", "w", "look", "equip", "hit"));
     Hero player = temporaryPlayer();
 //    HttpServletRequest request;
-//    String player1 = (String) request.getSession().getAttribute("hero");
+//    Hero player1 = (Hero) request.getSession().getAttribute("hero");
 
     @GetMapping("/location1")
     public String location1() {
