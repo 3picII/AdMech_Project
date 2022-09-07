@@ -20,6 +20,12 @@ public class HeroDao {
         return entityManager.find(Hero.class, id);
     }
 
+    public Hero findByName (String name){
+        return (Hero) entityManager.createQuery("select h from Hero h where h.name = :name")
+                .setParameter("name",name)
+                .getSingleResult();
+    }
+
     public List<Hero> findAll(){
         Query query = entityManager.createQuery("select h from Hero h");
         return query.getResultList();

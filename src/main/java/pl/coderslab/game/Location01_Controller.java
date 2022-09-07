@@ -26,9 +26,7 @@ public class Location01_Controller {
     private final ItemService itemService;
     private final Tools tools;
     static List<String> vocab = new ArrayList<>(Arrays.asList("n", "e", "s", "w", "look", "equip", "hit"));
-//    Hero player = temporaryPlayer();
-//    HttpServletRequest request;
-//    Hero player1 = (Hero) request.getSession().getAttribute("hero");
+
 
     @GetMapping("/location1")
     public String location1() {
@@ -51,23 +49,9 @@ public class Location01_Controller {
             }
             model.addAttribute("text1", look(player1));
         }
-
-//        switch (command) {
-//            default:
-//                runCommand(command);
-//                break;
-//        }
-//        model.addAttribute("text1", look());
-
         return "mainGame";
 
     }
-
-    public Hero temporaryPlayer() {
-        Hero player = new Hero("John", "Yet another tech priest from mars", 100, 15, 0);
-        return player;
-    }
-
 
     private void moveHeroTo(Hero hero, int roomId) {
         hero.setLocationId(roomId);

@@ -9,6 +9,7 @@ import pl.coderslab.dao.HeroService;
 import pl.coderslab.game_objects.Hero;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,7 +24,8 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(@RequestParam(name = "EName") String eName, HttpServletRequest request){
-        //request.getSession().setAttribute("hero", );
+
+        request.getSession().setAttribute("hero",heroService.findByName(eName));
         return"redirect:location1";
     }
 }

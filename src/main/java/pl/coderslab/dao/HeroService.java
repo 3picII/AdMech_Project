@@ -18,6 +18,10 @@ public class HeroService {
         return heroDao.findById(id);
     }
 
+    public Hero findByName(String name){
+        return heroDao.findByName(name);
+    }
+
     public List<Hero> findAll(){
         return heroDao.findAll();
     }
