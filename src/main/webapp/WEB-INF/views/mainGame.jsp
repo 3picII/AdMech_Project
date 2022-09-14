@@ -16,6 +16,7 @@
 </head>
 <body>
 <div style="float: left ; width: 25% ;text-align: center">
+<%--    <img src="${pageContext.request.contextPath}/WEB-INF/images/roseofwinds.png" alt="Rose of winds">--%>
     <h3>     N<br>
              |<br>
         W -- +  -- E<br>
