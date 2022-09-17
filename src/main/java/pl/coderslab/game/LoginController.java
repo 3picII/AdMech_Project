@@ -22,6 +22,8 @@ public class LoginController {
         return"login";
     }
 
+    //Uses custom method from heroService to find your saved character in database
+    //to get it and pass into the session for further gameplay
     @PostMapping("/login")
     public String login(@RequestParam(name = "EName") String eName, HttpServletRequest request){
 

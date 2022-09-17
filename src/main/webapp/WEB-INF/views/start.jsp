@@ -19,7 +19,7 @@
     };
 </script>
 
-<button id="myButton2" class="float-left submit-button" >Login</button>
+<button id="myButton2" class="float-left submit-button" >Log in</button>
 
 <script type="text/javascript">
     document.getElementById("myButton2").onclick = function () {

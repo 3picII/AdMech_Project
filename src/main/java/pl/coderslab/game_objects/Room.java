@@ -9,6 +9,19 @@ import javax.persistence.Entity;
 @Data
 public class Room {
 
+    //Direction integers are the id of neighbouring room
+    //for example:      -------       -------
+    //                 |   1   | --- |   2   |
+    //                  -------      -------
+    //                                  |
+    //                                -------
+    //                               |   3   |
+    //                                -------
+    //
+    //        north |  east  |  south  | west
+    //Room1 (no_exit,   2    ,  no_exit, no_exit)
+    //Room2 (no_exit, no_exit,    3    ,    1   )
+    //Room3 (   2   , no_exit,  no_exit, no_exit)
     private String name;
     private String description;
     private int north, east, south, west;
