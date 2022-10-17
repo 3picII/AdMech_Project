@@ -27,6 +27,9 @@ public class Room {
     private int north, east, south, west;
     private Chest chest;
 
+//    If there is enemy in given room int = 1 if not int = 0
+    private int enemy;
+
     public Room(String name, String description, int north, int east, int south, int west) {
         this.name = name;
         this.description = description;
